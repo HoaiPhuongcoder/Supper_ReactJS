@@ -1,21 +1,27 @@
 import { useRef, useState } from "react";
 import styles from "./taskInput.module.scss";
 import { Todo } from "../../@types/todo.type";
-type TaskInputProps = {
+import connect from "../../HOC/connect";
+import { debug, log } from "../../constants";
+import Title from "../Title";
+interface TaskInputProps {
   addTodo: (name: string) => void;
   editTodo: (name: string) => void;
   finishEditTodo: () => void;
   currentTodo: Todo | null;
-};
+}
 
-function TaskList({
+function TaskInput({
   addTodo,
   currentTodo,
   editTodo,
   finishEditTodo,
-}: TaskInputProps) {
+}: TaskInputProps & typeof injectedProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState<string>("");
+  const address = {
+    street: "10 Tran Hung Dap",
+  };
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (currentTodo) {
@@ -36,7 +42,7 @@ function TaskList({
   };
   return (
     <div className="mb-2">
-      <h1 className={styles.title}>To do list typescript</h1>
+      <Title address={address} />
       <form className={styles.form} onSubmit={handleSubmit}>
         <input
           ref={inputRef}
@@ -50,5 +56,5 @@ function TaskList({
     </div>
   );
 }
-
-export default TaskList;
+const injectedProps = { debug: debug, log: log };
+export default connect(injectedProps)(TaskInput);
