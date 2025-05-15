@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import styles from "./taskInput.module.scss";
 import { Todo } from "../../@types/todo.type";
 import connect from "../../HOC/connect";
@@ -19,9 +19,11 @@ function TaskInput({
 }: TaskInputProps & typeof injectedProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [name, setName] = useState<string>("");
-  const address = {
-    street: "10 Tran Hung Dap",
-  };
+  const address = useMemo(() => {
+    return {
+      street: "10 Tran Hung Dap",
+    };
+  }, []);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (currentTodo) {
@@ -40,9 +42,15 @@ function TaskInput({
       setName(value);
     }
   };
+
+  const handleClickTitle = useMemo(() => {
+    return (value: unknown) => {
+      console.log(value);
+    };
+  }, []);
   return (
     <div className="mb-2">
-      <Title address={address} />
+      <Title address={address} handleClickTitle={handleClickTitle} />
       <form className={styles.form} onSubmit={handleSubmit}>
         <input
           ref={inputRef}
