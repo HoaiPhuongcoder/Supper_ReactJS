@@ -1,0 +1,37 @@
+.panel-light {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.panel-dark {
+  color: #fff;
+  background-color: #333;
+  border: 1px solid #454d55;
+  border-radius: 0.25rem;
+}
+
+.button-light,
+.button-dark {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+}
+.button-light {
+  background-color: #007bff;
+  color: #fff;
+}
+.button-dark {
+  background-color: #343a40;
+  color: #fff;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+}
