@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { Post } from "../../../../types/blog.type";
 import { useDispatch, useSelector } from "react-redux";
-import { addPost, cancelEditingPost } from "../../blog.reducer";
+import { addPost, cancelEditingPost, finishEditingPost } from "../../blog.reducer";
 import type { RootState } from "../../../../store";
 
 const initialState: Post = {
@@ -15,14 +15,17 @@ const initialState: Post = {
 
 function CreatePost() {
   const [formData, setFormData] = useState<Post>(initialState);
-  const editingPost = useSelector((state: RootState) => state.blog.editingPost);
-
-  const dispatch = useDispatch();
+  const editingPost = useSelector((state: RootState) => state.blog.editingPost); //Lấy giá trị từ Provider
+  const dispatch = useDispatch(); // tạo dispatch
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formDataWithId = { ...formData, id: new Date().toISOString() };
-    dispatch(addPost(formDataWithId));
+    if (editingPost) {
+      dispatch(finishEditingPost(formData));
+    } else {
+      const formDataWithId = { ...formData, id: new Date().toISOString() };
+      dispatch(addPost(formDataWithId));
+    }
     setFormData(initialState);
   };
   const handleCancelEditingPost = () => {
