@@ -21,10 +21,16 @@ const ThemeContext = createContext<ThemeType>({
   onChangeTheme: () => {},
 });
 
+
+
 function Welcome() {
   const [theme, setTheme] = useState<ThemeType["theme"]>({
     color: "light",
   });
+
+   // địa chỉ khác
+  // Cái rerender   prevstate  === state
+
   const [, forceRender] = useState({});
   const onChangeTheme = useCallback((color: "light" | "dark") => {
     setTheme((prev) => ({ ...prev, color }));
